@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 // ========= MIDDLEWARE =========
 app.use(bodyParser.json());
 app.use(cors({
-  origin: 'https://portalsample.netlify.app', // Replace with your Netlify URL
+  origin: 'https://portalsample.netlify.app', 
   credentials: true
 }));
 
