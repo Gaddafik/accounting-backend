@@ -7,21 +7,22 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ================== MIDDLEWARE ==================
+// ========== MIDDLEWARE ==========
 app.use(bodyParser.json());
 app.use(cors({
-  origin: 'https://<your-netlify-frontend>', // replace with your Netlify URL
+  origin: 'https://portalsample.netlify.app', 
   credentials: true
 }));
 
-// ================== MONGO CONNECTION ==================
+// ========== MONGO CONNECTION ==========
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}).then(()=> console.log("MongoDB connected"))
-  .catch(err => console.error(err));
+})
+.then(() => console.log("MongoDB connected successfully"))
+.catch(err => console.error("MongoDB connection error:", err));
 
-// ================== SCHEMAS ==================
+// ========== SCHEMAS ==========
 const studentSchema = new mongoose.Schema({
   name: String,
   matricNo: String
@@ -37,7 +38,7 @@ const courseSchema = new mongoose.Schema({
 
 const Course = mongoose.model('Course', courseSchema);
 
-// ================== ROUTES ==================
+// ========== ROUTES ==========
 
 // GET all courses
 app.get('/api/courses', async (req, res) => {
@@ -81,4 +82,5 @@ app.post('/api/tests/:courseId', async (req,res)=>{
   }
 });
 
+// ========== START SERVER ==========
 app.listen(PORT, ()=> console.log(`Backend running on port ${PORT}`));
